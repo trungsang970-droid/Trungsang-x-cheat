@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trungsang x Cheat</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Nhạc nền & Điều khiển -->
+    <div class="music-player">
+        <div class="disc" id="disc">🎵</div>
+        <div class="music-controls">
+            <button id="prevBtn">◀</button>
+            <button id="playBtn">⏯</button>
+            <button id="nextBtn">▶</button>
+            <button id="closeMusic">✕</button>
+        </div>
+        <span id="songName">Chấp Niệm Trong Em Remix</span>
+    </div>
+
+    <!-- Form Đăng ký / Đăng nhập -->
+    <div id="authSection" class="auth-container">
+        <h2>Trungsang x Cheat</h2>
+        <div class="tab-auth">
+            <button class="tab-btn active" onclick="showAuthTab('login')">Đăng nhập</button>
+            <button class="tab-btn" onclick="showAuthTab('register')">Đăng ký</button>
+        </div>
+
+        <div id="loginForm" class="auth-form active">
+            <input type="text" id="loginUser" placeholder="Tên tài khoản" required>
+            <input type="password" id="loginPass" placeholder="Mật khẩu" required>
+            <button onclick="login()">Đăng nhập</button>
+        </div>
+
+        <div id="registerForm" class="auth-form">
+            <input type="text" id="regUser" placeholder="Tên tài khoản" required>
+            <input type="password" id="regPass" placeholder="Mật khẩu" required>
+            <button onclick="register()">Tạo tài khoản</button>
+        </div>
+    </div>
+
+    <!-- Nội dung chính sau khi đăng nhập -->
+    <div id="mainContent" class="main-container hidden">
+        <header>
+            <h1 class="brand">Trungsang x Cheat</h1>
+            <div class="balance">Số dư: <span id="userBalance">0</span> VNĐ</div>
+            <button class="support-btn" onclick="openZalo()">🆘 Hỗ trợ</button>
+        </header>
+
+        <!-- Menu Tab -->
+        <div class="tabs">
+            <button class="tab-link active" onclick="openTab('key')">🔑 Nhận Key</button>
+            <button class="tab-link" onclick="openTab('deposit')">💴 Lịch sử nạp tiền</button>
+            <button class="tab-link" onclick="openTab('card')">💳 Nạp thẻ cào</button>
+            <button class="tab-link" onclick="openTab('transaction')">💰 Lịch sử giao dịch</button>
+            <button class="tab-link" onclick="openTab('cancel')">💵 Lịch sử huỷ nạp</button>
+            <button id="adminTab" class="tab-link hidden" onclick="openAdminPanel()">🔐 Quản trị</button>
+        </div>
+
+        <!-- Tab: Nhận Key & Mua Proxy -->
+        <div id="key" class="tab-content active">
+            <h3>PROXY VIP V2</h3>
+            <div class="product">
+                <p>Ngày - 30.000 VNĐ</p>
+                <button onclick="buyProduct('ngay', 30000)">Mua ngay</button>
+            </div>
+            <div class="product">
+                <p>Tuần - 120.000 VNĐ</p>
+                <button onclick="buyProduct('tuan', 120000)">Mua ngay</button>
+            </div>
+            <div class="product">
+                <p>Tháng - 250.000 VNĐ</p>
+                <button onclick="buyProduct('thang', 250000)">Mua ngay</button>
+            </div>
+            <h4>Lịch sử nhận key</h4>
+            <ul id="keyHistory"></ul>
+        </div>
+
+        <!-- Tab: Nạp tiền chuyển khoản -->
+        <div id="deposit" class="tab-content">
+            <h3>Nạp tiền chuyển khoản (Tối thiểu: 30.000 VNĐ)</h3>
+            <input type="number" id="depositAmount" min="30000" placeholder="Nhập số tiền">
+            <div class="bank-info">
+                <p>Ngân hàng: MB Bank</p>
+                <p>STK: <strong>0372822927</strong></p>
+                <p>Chủ TK: TRAN TRUNG SANG</p>
+                <p>Nội dung chuyển: <span id="transferContent">10008386</span></p>
+            </div>
+            <button onclick="confirmDeposit()">Xác nhận đã chuyển tiền</button>
+            <ul id="depositHistory"></ul>
+        </div>
+
+        <!-- Tab: Nạp thẻ cào -->
+        <div id="card" class="tab-content">
+            <h3>Nạp thẻ cào</h3>
+            <select id="cardType">
+                <option value="">Chọn nhà mạng</option>
+                <option value="viettel">Viettel</option>
+                <option value="garena">Garena</option>
+                <option value="vinaphone">Vinaphone</option>
+                <option value="mobifone">Mobifone</option>
+                <option value="zing">Zing</option>
+            </select>
+            <select id="cardValue">
+                <option value="">Chọn mệnh giá</option>
+                <option value="20000">20.000 VNĐ</option>
+                <option value="30000">30.000 VNĐ</option>
+                <option value="50000">50.000 VNĐ</option>
+                <option value="100000">100.000 VNĐ</option>
+                <option value="200000">200.000 VNĐ</option>
+                <option value="500000">500.000 VNĐ</option>
+            </select>
+            <input type="text" id="cardSeri" placeholder="Số Seri">
+            <input type="text" id="cardCode" placeholder="Mã thẻ">
+            <button onclick="submitCard()">Gửi thẻ cho Admin</button>
+            <ul id="cardHistory"></ul>
+        </div>
+
+        <!-- Tab: Lịch sử giao dịch -->
+        <div id="transaction" class="tab-content">
+            <h3>Lịch sử nhận & trừ tiền</h3>
+            <ul id="transactionHistory"></ul>
+        </div>
+
+        <!-- Tab: Lịch sử huỷ nạp -->
+        <div id="cancel" class="tab-content">
+            <h3>Lịch sử huỷ giao dịch</h3>
+            <ul id="cancelHistory"></ul>
+        </div>
+
+        <!-- Panel Admin -->
+        <div id="adminPanel" class="admin-panel hidden">
+            <h2>Bảng Quản Trị</h2>
+            <p>Mật khẩu Admin: <input type="password" id="adminPass" placeholder="Nhập mật khẩu" oninput="checkAdminPass()"></p>
+            <div id="adminContent" class="hidden">
+                <h4>📋 Danh sách đăng ký</h4>
+                <ul id="regList"></ul>
+                <h4>💳 Yêu cầu nạp tiền/chuyển khoản</h4>
+                <ul id="adminDepositReq"></ul>
+                <h4>🔑 Yêu cầu mua key</h4>
+                <ul id="adminKeyReq"></ul>
+                <h4>💳 Yêu cầu nạp thẻ</h4>
+                <ul id="adminCardReq"></ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Nhạc nền -->
+    <audio id="bgMusic" loop>
+    <script src="script.js"></script>
+</body>
+</html>
