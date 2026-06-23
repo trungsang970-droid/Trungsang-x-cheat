@@ -1,0 +1,249 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+    min-height: 100vh;
+    color: #fff;
+    perspective: 1000px;
+}
+
+/* Hiệu ứng 3D & Đèn nền */
+.brand {
+    font-size: 2.5rem;
+    text-align: center;
+    margin: 20px 0;
+    background: linear-gradient(45deg, #ff00c8, #00fff9, #fffc00);
+    -webkit-background-clip: text;
+    color: transparent;
+    text-shadow: 0 0 15px rgba(255,0,200,0.6);
+    transform: translateZ(30px);
+    transition: transform 0.3s;
+}
+
+.brand:hover {
+    transform: translateZ(50px) rotateX(10deg);
+}
+
+/* Trình phát nhạc */
+.music-player {
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    background: rgba(255, 192, 203, 0.25);
+    padding: 10px;
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 20px #ff99cc;
+    animation: rotate 12s linear infinite;
+    transform-style: preserve-3d;
+    z-index: 999;
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.music-controls {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    display: none;
+    background: #222;
+    padding: 5px;
+    border-radius: 8px;
+}
+
+.music-player:hover .music-controls {
+    display: block;
+}
+
+#songName {
+    position: absolute;
+    bottom: -25px;
+    font-size: 0.7rem;
+    white-space: nowrap;
+}
+
+/* Form đăng nhập/đăng ký */
+.auth-container {
+    width: 90%;
+    max-width: 420px;
+    margin: 80px auto;
+    background: rgba(255,255,255,0.1);
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3), 0 0 20px rgba(255,0,200,0.2);
+    backdrop-filter: blur(12px);
+    transform: translateZ(20px);
+}
+
+.tab-auth {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.tab-btn {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    background: #333;
+    color: #fff;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.tab-btn.active {
+    background: linear-gradient(45deg, #ff0080, #8000ff);
+}
+
+.auth-form {
+    display: none;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.auth-form.active {
+    display: flex;
+}
+
+input, select {
+    padding: 12px;
+    border-radius: 8px;
+    border: none;
+    background: rgba(255,255,255,0.15);
+    color: #fff;
+    outline: none;
+}
+
+button {
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background: linear-gradient(45deg, #00c8ff, #00ff95);
+    color: #000;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    box-shadow: 0 4px 12px rgba(0,200,255,0.3);
+}
+
+button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 18px rgba(0,255,149,0.5);
+}
+
+/* Nội dung chính */
+.main-container {
+    width: 95%;
+    max-width: 1100px;
+    margin: 20px auto;
+    background: rgba(255,255,255,0.08);
+    padding: 25px;
+    border-radius: 20px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+    backdrop-filter: blur(15px);
+    transform-style: preserve-3d;
+}
+
+.balance {
+    font-size: 1.3rem;
+    text-align: right;
+    margin-bottom: 20px;
+    color: #fffc00;
+    font-weight: bold;
+}
+
+.tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 25px;
+}
+
+.tab-link {
+    background: #2a2a4a;
+    color: #fff;
+    padding: 10px 15px;
+    border-radius: 8px;
+}
+
+.tab-link.active {
+    background: linear-gradient(45deg, #ff2e63, #08d9d6);
+}
+
+.tab-content {
+    display: none;
+    padding: 20px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 12px;
+    transform: translateZ(15px);
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.product {
+    background: rgba(255,255,255,0.1);
+    padding: 15px;
+    margin: 12px 0;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.hidden {
+    display: none !important;
+}
+
+.bank-info {
+    background: rgba(0,255,150,0.1);
+    padding: 15px;
+    border-radius: 10px;
+    margin: 15px 0;
+    border-left: 4px solid #00ff95;
+}
+
+ul {
+    list-style: none;
+    margin-top: 15px;
+}
+
+ul li {
+    padding: 10px;
+    background: rgba(255,255,255,0.08);
+    margin: 6px 0;
+    border-radius: 6px;
+}
+
+.support-btn {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    background: #0084ff;
+    color: white;
+    z-index: 99;
+}
+
+.admin-panel {
+    margin-top: 30px;
+    padding: 20px;
+    background: rgba(255,0,0,0.15);
+    border-radius: 12px;
+    border: 1px solid #ff4444;
+}
